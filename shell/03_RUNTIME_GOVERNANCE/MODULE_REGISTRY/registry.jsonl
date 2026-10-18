@@ -1,0 +1,16 @@
+{"name":"VEGA","version":"1.0","tier":"core","allowed":["system_check","run"],"gate":"required","log":true}
+
+{"name":"PROBLEM_SOLVER","version":"1.0","tier":"read","allowed":["run"],"gate":"required","log":true}
+{"name":"ADVISOR_GENERAL","version":"1.0","tier":"read","allowed":["run"],"gate":"required","log":true}
+{"name":"JOURNAL","version":"1.0","tier":"read","allowed":["run"],"gate":"required","log":true}
+{"name":"INVENTOR","version":"1.0","tier":"write","allowed":["run"],"gate":"required","log":true}
+{"name":"LEGAL","version":"1.0","tier":"write","allowed":["run"],"gate":"required","log":true}
+{"name":"PATENT","version":"1.0","tier":"write","allowed":["run","export"],"gate":"required","log":true}
+
+{"name":"PATENT_OFFICE","version":"1.0","tier":"write","allowed":["run","export"],"gate":"required","log":true}
+{"name":"PATENT_PROSECUTION","version":"1.0","tier":"write","allowed":["run","export"],"gate":"required","log":true}
+
+{"name":"SWARM_AGENTS","version":"1.0","tier":"read","allowed":["run"],"gate":"required","log":true}
+{"name":"demo_read_only","version":"1.0","tier":"read","allowed":["echo","cat"],"gate":"none","log":true}
+{"name":"ADAPTER_REGISTRY","version":"1.0","tier":"read","allowed":["run"],"gate":"required","log":true}
+{"name":"TRUSTED_EXPORT","version":"1.0","tier":"write","allowed":["run"],"gate":"required","log":true}
