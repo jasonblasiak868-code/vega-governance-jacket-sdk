@@ -2,6 +2,12 @@
 
 ![vega-governance-jacket-sdk](assets/tile.svg)
 
+<!-- vega-install-order -->
+> **Build order: 2/2. This kit needs 1 other Vega kit installed first.** Install them in this order, then this one:
+> 1/2 `vega-custody-sdk`  
+> 2/2 `vega-governance-jacket-sdk` (this kit)
+> Install each with `pip install --no-deps git+https://github.com/jasonblasiak868-code/<name>` in the order shown, plus `pip install cryptography`. Full steps: [INTEGRATION_GUIDE](https://github.com/jasonblasiak868-code/vega-umbrella-sdk/blob/main/INTEGRATION_GUIDE.md).
+
 The governance jacket: human-only actions, single-use signed commitments, entry and exit gates. It owns the authority concern — nothing crosses the boundary into the world without a human's signature for exactly that action, once, with a short lease. The model may think and draft freely; acting requires a commitment the model cannot mint, widen, or replay.
 
 > **Licensing.** Source-available, not open source. Free for personal use; free for registered small businesses (under US$1M revenue and valuation); everyone else needs a commercial license (see LICENSE; for a commercial license write to jasonblasiak.ai.mail@gmail.com). Patent pending. Draft licence text, not yet reviewed by an attorney.
