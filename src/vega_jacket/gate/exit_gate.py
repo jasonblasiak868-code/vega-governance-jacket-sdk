@@ -39,12 +39,13 @@ class ExitGate:
         if humanauth.is_human_only(action) and route != "human":
             self._deny(action, f"HUMAN_ONLY action on the {route} route")
         try:
-            self.commit.assert_unburned(signed)
-            if action in humanauth.HUMAN_ONLY:
-                humanauth.require_human(self.verifier, action, params, signed)
-            else:
-                self.verifier.check(action, params, signed)
-            out = self.commit.mint_checked(action, params, signed, boundary_crossing=True)
+            with self.commit.lock:                              # the same lock Commit.commit takes: check, verify and burn as one step
+                self.commit.assert_unburned(signed)
+                if action in humanauth.HUMAN_ONLY:
+                    humanauth.require_human(self.verifier, action, params, signed)
+                else:
+                    self.verifier.check(action, params, signed)
+                out = self.commit.mint_checked(action, params, signed, boundary_crossing=True)
         except (CommitRefused, humanauth.HumanAuthError) as exc:
             self._deny(action, str(exc))
         if not self.ledger.verify(out["commitment"]):

@@ -13,3 +13,7 @@ An automated review (REVIEW.md) ran static rules, secret-shape checks and the te
 ## Secrets
 
 No credential belongs in this repo. Run a secret scanner (for example gitleaks) before every commit.
+
+## Legacy shell layer
+
+The `shell/` folder holds the Termux-era runner scripts. They are kept for reference and are NOT the strong path: the Python gates in `src/` are. As of 2026-10-20 `hard_stop_off.sh` refuses to lift the hard stop (that needs the human-signed restore) and `gate.sh` accepts only plain-word module and action names. Do not present the shell gate as an authority check.

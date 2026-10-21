@@ -72,7 +72,7 @@ The human-side signer and CLI live in `vega_jacket.humanauth.human_signer` and `
 
 ## Tests
 
-64 tests in 5 files (STATUS.md). Run:
+75 tests in 6 files (STATUS.md). Run:
 
 ```bash
 python -m tests.test_humanauth

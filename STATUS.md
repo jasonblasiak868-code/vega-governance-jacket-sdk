@@ -7,7 +7,7 @@
 - gate
 - shell
 
-Tests: 64 tests in 5 files, all passing.
+Tests: 75 tests in 6 files, all passing.
 
 ## DESIGNED ONLY (not built)
 

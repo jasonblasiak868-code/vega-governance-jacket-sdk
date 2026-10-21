@@ -57,8 +57,25 @@ if [ -z "$MODULE" ] || [ -z "$ACTION" ]; then
   exit 1
 fi
 
+# A module or action is a plain word: letters, digits, underscore, hyphen. Anything else (a regular expression, a newline, a separator) is refused BEFORE it is used to
+# search the registry or written to the audit log (a name like '.*' used to match any entry, and a newline could forge an audit line).
+case "$MODULE$ACTION" in
+  *[!A-Za-z0-9_-]*)
+    echo "DENY: module and action must be plain words (letters, digits, _ and -)."
+    echo "$(date) | (invalid name) | (invalid action) | DENY | Invalid characters" >> "$AUDIT"
+    exit 1
+  ;;
+esac
+
 # tolerate spacing in JSON (jsonl)
 ENTRY="$(grep -E "\"name\"[[:space:]]*:[[:space:]]*\"$MODULE\"" "$REGISTRY" 2>/dev/null || true)"
+
+if [ "$(printf '%s
+' "$ENTRY" | grep -c .)" -gt 1 ]; then
+  echo "DENY: Registry has more than one entry for this module."
+  echo "$(date) | $MODULE | $ACTION | DENY | Ambiguous registry entry" >> "$AUDIT"
+  exit 1
+fi
 
 if [ -z "$ENTRY" ]; then
   echo "DENY: Module not registered."

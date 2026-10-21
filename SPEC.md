@@ -192,6 +192,6 @@ python -m tests.redteam_2_commit_gate_cli
 python -m tests.redteam_3_audit_findings
 ```
 
-Passing means: all 64 tests across 5 files pass (STATUS.md). The REVIEW.md scan found zero high/medium/low findings and one informational (exit_gate fail-closed denial recording).
+Passing means: all 75 tests across 5 files pass (STATUS.md). The REVIEW.md scan found zero high/medium/low findings and one informational (exit_gate fail-closed denial recording).
 
 What passing does NOT mean: independently security-reviewed, crypto expert-reviewed, production-hardened, hardware key support, legal compliance, protection against keystroke injection at the human's terminal.

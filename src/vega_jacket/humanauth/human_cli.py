@@ -12,7 +12,7 @@ import time
 
 from vega_jacket.humanauth import human_signer  # noqa: E402
 from vega_jacket.humanauth.human_only import HUMAN_ONLY  # noqa: E402
-from vega_jacket.humanauth.verify import MAX_LEASE_SECONDS, action_hash  # noqa: E402
+from vega_jacket.humanauth.verify import MAX_LEASE_SECONDS, HumanAuthError, action_hash  # noqa: E402
 
 COOLDOWN_SECONDS = 5
 _STAMP = os.path.join(os.path.expanduser("~"), ".vega_human_last_sign")   # per user, not inside the package folder
@@ -49,8 +49,8 @@ def sign(a):
     _need_tty()
     if a.action == "*" or not a.action:
         sys.exit("REFUSED: wildcard or empty action.")
-    if a.lease > MAX_LEASE_SECONDS:
-        sys.exit(f"REFUSED: lease over cap of {MAX_LEASE_SECONDS}s.")
+    if a.lease > MAX_LEASE_SECONDS or a.lease <= 0:
+        sys.exit(f"REFUSED: the lease is a whole number of seconds from 1 to {MAX_LEASE_SECONDS}.")
     try:
         raw = open(_STAMP).read()
     except OSError:
@@ -82,6 +82,8 @@ def sign(a):
         blob = f.read()
     try:
         approval = human_signer.sign(blob, _passphrase(), a.device, a.surface, a.action, params, a.lease)
+    except HumanAuthError as exc:                               # a bad action, device, surface or lease: say so, do not blame the passphrase
+        sys.exit(f"REFUSED: {exc}. Nothing signed.")
     except Exception:
         sys.exit("Wrong passphrase or unreadable key. Nothing signed.")
     try:
